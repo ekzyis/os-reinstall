@@ -99,7 +99,6 @@ ekzyis@vps> sudo mv endlessh /usr/local/bin/
 ekzyis@vps> which endlessh  # confirm it was installed
 ```
 
-
 Setup endlessh service:
 ```sh
 ekzyis@vps> sudo cp util/endlessh.service /etc/systemd/system/
