@@ -118,3 +118,70 @@ And start it:
 ```sh
 ekzyis@vps> sudo systemctl start endlessh
 ```
+
+##### 5. Install gitolite
+
+Create git user and set its password:
+```sh
+ekzyis@vps> sudo useradd -m git
+ekzyis@vps> sudo passwd gi
+```
+
+Copy the public key of the gitolite admin to the server. Since most likely you want to be the gitolite admin, you need to copy your own public key.
+
+```sh
+ekzyis@local> scp ~/.ssh/id_rsa.pub vps:gitolite-admin.pub
+ekzyis@local> ssh vps
+ekzyis@vps> sudo mv gitolite-admin.pub /home/git/
+ekzyis@vps> sudo chown git:git /home/git/gitolite-admin.pub
+```
+
+Install gitolite:
+
+https://gitolite.com/gitolite/quick_install.html
+
+```sh
+ekzyis@vps> sudo su - git
+git@vps> mkdir -p ~/bin
+git@vps> git clone https://github.com/sitaramc/gitolite
+git@vps> gitolite/install -ln ~/bin
+git@vps> gitolite setup -pk gitolite-admin.pub
+```
+
+Check if gitolite setup worked. You should be greeting with "hello gitolite-admin":
+```sh
+ekzyis@local> ssh git@vps info
+```
+
+(Optional) Add old repositories:
+
+https://gitolite.com/gitolite/basic-admin.html#appendix-1-bringing-existing-repos-into-gitolite
+
+Move old, bare repositories into $HOME/repositories:
+```sh
+git@vps> mv <REPOSITORIES> $HOME/repositories
+gite@vps> chown -R gitolite:gitolite $HOME/repositories  # make sure correct permissions are set
+```
+
+Then run these three commands:
+```sh
+git@vps> gitolite compile
+git@vps> gitolite setup --hooks-only
+git@vps> gitolite trigger POST_COMPILE
+```
+
+Check if you now have access to all previous repositories:
+```sh
+ekzyis@local> ssh git@vps info
+```
+
+If not, force push your backup of the gitolite-admin repo (you have one, right?):
+```sh
+ekzyis@local> cd gitolite-admin
+ekzyis@local> git push -f
+```
+
+This should update the gitolite-admin on the remote thus the next command should show all repositories:
+```sh
+ekzyis@local> ssh git@vps info
+```
