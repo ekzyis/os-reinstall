@@ -75,9 +75,9 @@ ekzyis@local> ssh-copy-id -p 55680 vps
 
 To disable pasword authentication, set following properties in /etc/ssh/sshd_config of vps and restart ssh daemon:
 
-PasswordAuthentication no
-ChallengeResponseAuthentication no
-UsePAM no
+- PasswordAuthentication no
+- ChallengeResponseAuthentication no
+- UsePAM no
 
 ```sh
 ekzyis@vps> sudo vim /etc/ssh/sshd_config
