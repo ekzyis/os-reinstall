@@ -194,3 +194,13 @@ This should update the gitolite-admin on the remote thus the next command should
 ```sh
 ekzyis@local> ssh git@vps info
 ```
+
+### 6. Install docker
+
+Docker installation: https://docs.docker.com/engine/install/ubuntu/
+Docker access without sudo: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+
+Don't forget to configure docker to start on boot:
+```sh
+$ sudo systemctl enable docker
+```
