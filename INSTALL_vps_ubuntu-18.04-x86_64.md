@@ -1,4 +1,4 @@
-# OS reinstall steps: ubuntu-18.04-x86_64
+# OS reinstall steps: vps@delta-networks.de - ubuntu-18.04-x86_64
 
 ### 1. User setup
 
