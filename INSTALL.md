@@ -43,3 +43,67 @@ Install git:
 ekzyis@vps> sudo apt-get install git
 ```
 
+### 3. Setup Github access with public key
+
+Create ssh key pair:
+```sh
+ekzyis@vps> ssh-keygen -t rsa -b 4096
+```
+
+Add public key to your Github account.
+
+### 4. Setup ssh
+
+##### 4.1 Switch ssh port
+
+Switch ssh port to 55680:
+```sh
+ekzyis@vps> sudo sed -ie 's/#Port 22/Port 55680/'
+ekzyis@vps> sudo systemctl restart ssh
+```
+
+Check if ssh connection still works:
+```sh
+ekzyis@local> ssh vps -p 55680
+```
+
+##### 4.2 Setup public key authentication with vps
+
+```sh
+ekzyis@local> ssh-copy-id -p 55680 vps
+```
+
+##### 4.3 Setup endlessh
+
+Build `endlessh`:
+```sh
+ekzyis@vps> git clone git@github.com:skeeto/endlessh
+ekzyis@vps> sudo apt-get install libc6-dev build-essential
+ekzyis@vps> cd endlessh && make
+```
+
+Setup `endlessh`:
+```sh
+ekzyis@vps> sudo mv endlessh /usr/local/bin/
+ekzyis@vps> which endlessh  # confirm it was installed
+```
+
+
+Setup `endlessh` service:
+```sh
+ekzyis@vps> sudo cp util/endlessh.service /etc/systemd/system/
+ekzyis@vps> sudo systemctl enable endlessh
+```
+
+Open `endlessh.service` file and follow instructions there to enable endlessh binding on ports < 1024.
+
+Then create `endlessh` config:
+```sh
+ekzyis@vps> sudo mkdir -p /etc/endlessh
+ekzyis@vps> echo "Port 22" | sudo tee config
+```
+
+And start it:
+```sh
+ekzyis@vps> sudo systemctl start endlessh
+```
