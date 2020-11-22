@@ -118,7 +118,7 @@ And start it:
 ekzyis@vps> sudo systemctl start endlessh
 ```
 
-##### 5. Install gitolite
+### 5. Install gitolite
 
 Create git user and set its password:
 ```sh
