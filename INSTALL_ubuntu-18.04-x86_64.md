@@ -73,6 +73,17 @@ ekzyis@local> ssh vps -p 55680
 ekzyis@local> ssh-copy-id -p 55680 vps
 ```
 
+To disable pasword authentication, set following properties in /etc/ssh/sshd_config of vps and restart ssh daemon:
+
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM no
+
+```sh
+ekzyis@vps> sudo vim /etc/ssh/sshd_config
+ekzyis@vps> sudo systemctl restart ssh
+```
+
 ##### 4.3 Setup endlessh
 
 Build endlessh:
