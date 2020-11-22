@@ -2,7 +2,8 @@
 
 ### 1. User setup
 
-Login as root:
+
+Login as root (Since perhaps your local config still uses a non-standard ssh port for the vps, specify the port manually):
 ```sh
 ekzyis@local> ssh root@vps -p 22
 ```
@@ -67,10 +68,19 @@ Check if ssh connection still works:
 ekzyis@local> ssh vps -p 55680
 ```
 
+Optional: Add/Update ssh config entry with new port.
+
+Check if ssh connection works without specifying port:
+```
+ekzyis@local> ssh vps
+```
+
+For now, I will no longer specify the ssh port.
+
 ##### 4.2 Setup public key authentication with vps
 
 ```sh
-ekzyis@local> ssh-copy-id -p 55680 vps
+ekzyis@local> ssh-copy-id vps
 ```
 
 To disable pasword authentication, set following properties in /etc/ssh/sshd_config of vps and restart ssh daemon:
