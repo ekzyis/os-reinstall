@@ -124,7 +124,7 @@ ekzyis@vps> sudo systemctl start endlessh
 Create git user and set its password:
 ```sh
 ekzyis@vps> sudo useradd -m git
-ekzyis@vps> sudo passwd gi
+ekzyis@vps> sudo passwd git
 ```
 
 Copy the public key of the gitolite admin to the server. Since most likely you want to be the gitolite admin, you need to copy your own public key.
