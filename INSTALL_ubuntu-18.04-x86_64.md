@@ -25,14 +25,14 @@ ekzyis@host> ssh vps -p 22
 Set login shell with `chsh`.
 
 
-### 2. Install `git`
+### 2. Install git
 
 Login as user:
 ```sh
 ekzyis@local> ssh vps -p 22
 ```
 
-Add personal package archive for `git` to get latest stable upstream version of `git`. We first need to install `software-properties-common` because the command `add-apt-repository` is included in it.
+Add personal package archive for git to get latest stable upstream version of git. We first need to install `software-properties-common` because the command `add-apt-repository` is included in it.
 ```sh
 ekzyis@vps> sudo apt-get install software-properties-common
 ekzyis@vps> sudo add-apt-repository ppa:git-core/ppa
@@ -75,29 +75,29 @@ ekzyis@local> ssh-copy-id -p 55680 vps
 
 ##### 4.3 Setup endlessh
 
-Build `endlessh`:
+Build endlessh:
 ```sh
 ekzyis@vps> git clone git@github.com:skeeto/endlessh
 ekzyis@vps> sudo apt-get install libc6-dev build-essential
 ekzyis@vps> cd endlessh && make
 ```
 
-Setup `endlessh`:
+Setup endlessh:
 ```sh
 ekzyis@vps> sudo mv endlessh /usr/local/bin/
 ekzyis@vps> which endlessh  # confirm it was installed
 ```
 
 
-Setup `endlessh` service:
+Setup endlessh service:
 ```sh
 ekzyis@vps> sudo cp util/endlessh.service /etc/systemd/system/
 ekzyis@vps> sudo systemctl enable endlessh
 ```
 
-Open `endlessh.service` file and follow instructions there to enable endlessh binding on ports < 1024.
+Open the endlessh.service file and follow instructions there to enable endlessh binding on ports < 1024.
 
-Then create `endlessh` config:
+Then create endlessh config:
 ```sh
 ekzyis@vps> sudo mkdir -p /etc/endlessh
 ekzyis@vps> echo "Port 22" | sudo tee config
